@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopX — My Store</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="auth-guard.js"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <h2>🛍️ Shop NEW MODERN WORLD</h2>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <a href="cart.html">🛒 Cart <span class="cart-badge" id="cart-count">0</span></a>
+    <a href="profile.html">👤</a>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- HERO BANNER -->
+<div class="hero">
+  <h1>Style Ki Duniya</h1>
+  <p>Best fashion at unbeatable prices 🔥</p>
+</div>
+
+<!-- SEARCH -->
+<input type="text" id="search" placeholder="🔍 Search products...">
+
+<!-- CATEGORIES -->
+<div class="categories-row">
+  <div class="cat" onclick="filterCategory('all')">✨ <p>All</p></div>
+  <div class="cat" onclick="filterCategory('Clothes')">👗 <p>Clothes</p></div>
+  <div class="cat" onclick="filterCategory('Shoes')">👟 <p>Shoes</p></div>
+  <div class="cat" onclick="filterCategory('Accessories')">⌚ <p>Accessories</p></div>
+  <div class="cat" onclick="filterCategory('Jewellery')">💎 <p>Jewellery</p></div>
+</div>
+
+<!-- SECTION TITLE -->
+<p class="section-title">Featured Products</p>
+
+<!-- PRODUCT GRID -->
+<div id="product-list"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div id="product-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeProductModal()">&times;</span>
+    <div class="modal-body">
+      <div class="modal-img-container">
+        <img id="modal-product-img" src="" alt="">
+      </div>
+      <div class="modal-details">
+        <span id="modal-product-category" class="modal-badge">Category</span>
+        <h2 id="modal-product-name">Product Name</h2>
+        <p id="modal-product-desc">This premium item combines contemporary style with exceptional comfort. Perfect for standard daily wear or special occasions.</p>
+        <p class="modal-price" id="modal-product-price">₹0</p>
+        <button id="modal-add-to-cart-btn" class="btn-primary">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a href="index.html" class="active"><span class="icon">🏠</span>Home</a>
+  <a href="cart.html"><span class="icon">🛍️</span>Cart</a>
+  <a href="orders.html"><span class="icon">📦</span>Orders</a>
+  <a href="profile.html"><span class="icon">👤</span>Profile</a>
+</div>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — ShopX</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="auth-guard.js"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <h2>👤 My Profile</h2>
+  <a href="index.html">← Shop</a>
+</div>
+
+<!-- PROFILE CARD -->
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-avatar">👤</div>
+    <h3 id="username-display">User Name</h3>
+    <p id="user-role">Premium Member</p>
+    <button class="btn-primary" onclick="logout()" style="width: 100%;">Logout</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a href="index.html"><span class="icon">🏠</span>Home</a>
+  <a href="cart.html"><span class="icon">🛍️</span>Cart</a>
+  <a href="orders.html"><span class="icon">📦</span>Orders</a>
+  <a href="profile.html" class="active"><span class="icon">👤</span>Profile</a>
+</div>
+
+<script>
+  const user = localStorage.getItem("user") || "Guest";
+  document.getElementById("username-display").innerText = user;
+
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+  }
+</script>
+
+</body>
+</html>

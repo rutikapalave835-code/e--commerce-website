@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Style Ki Duniya — Home{% endblock %}
+
+{% block content %}
+<!-- HERO BANNER -->
+<div class="hero">
+  <h1>Style Ki Duniya</h1>
+  <p>Best fashion and premium collections at unbeatable prices 🔥</p>
+</div>
+
+<!-- SEARCH -->
+<form method="get" action="{% url 'home' %}" style="display: block; width: min(400px, 90%); margin: 24px auto 16px; position: relative;">
+  <input type="text" name="q" value="{{ query }}" id="search" placeholder="🔍 Search products..." style="width: 100%; margin: 0;">
+  {% if selected_category %}
+    <input type="hidden" name="category" value="{{ selected_category }}">
+  {% endif %}
+</form>
+
+<!-- CATEGORIES -->
+<div class="categories-row">
+  <a href="?q={{ query }}" class="cat" {% if not selected_category or selected_category == 'all' %}style="background: var(--accent); border-color: var(--accent); color: white;"{% endif %} style="text-decoration:none;">
+    ✨ <p>All</p>
+  </a>
+  {% for category in categories %}
+    <a href="?category={{ category.id }}&q={{ query }}" class="cat" 
+       {% if selected_category == category.id|stringformat:'i' %}style="background: var(--accent); border-color: var(--accent); color: white;"{% endif %} 
+       style="text-decoration:none;">
+      <span>
+        {% if category.category_name == 'Clothes' %}👗
+        {% elif category.category_name == 'Shoes' %}👟
+        {% elif category.category_name == 'Accessories' %}⌚
+        {% elif category.category_name == 'Jewellery' %}💎
+        {% else %}✨
+        {% endif %}
+      </span>
+      <p>{{ category.category_name }}</p>
+    </a>
+  {% endfor %}
+</div>
+
+<!-- SECTION TITLE -->
+<p class="section-title">
+  {% if query %}
+    Search Results for "{{ query }}"
+  {% else %}
+    Featured Products
+  {% endif %}
+</p>
+
+<!-- PRODUCT GRID -->
+<div id="product-list">
+  {% for product in products %}
+    <div class="product" onclick="window.location.href='{% url 'product_detail' product.id %}'">
+      <img src="{{ product.image }}" alt="{{ product.name }}"
+        onerror="this.src='https://placehold.co/400x200/1a1a1a/888?text={{ product.name|urlencode }}'">
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.price }}</p>
+        <form method="post" action="{% url 'add_to_cart' product.id %}" style="margin:0;">
+          {% csrf_token %}
+          <button type="submit" onclick="event.stopPropagation();">🛒 Add to Cart</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <div class="empty-state" style="grid-column: 1 / -1;">
+      <div class="empty-icon">🔍</div>
+      <h3>No products found</h3>
+      <p>Try searching for something else or change categories.</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile — ShopX{% endblock %}
+
+{% block content %}
+<!-- NAVBAR -->
+<div class="navbar" style="border-top: none;">
+  <h2>👤 My Profile</h2>
+  <a href="{% url 'home' %}">← Shop</a>
+</div>
+
+<!-- PROFILE CARD -->
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-avatar">👤</div>
+    <h3 id="username-display" style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--text);">{{ user.first_name }} {{ user.last_name }}</h3>
+    <p style="color: var(--text-muted); margin: 6px 0 8px;">Username: @{{ user.username }}</p>
+    <p style="color: var(--accent2); margin-bottom: 24px;">Email: {{ user.email }}</p>
+    <button class="btn-primary" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="width: 100%;">Logout</button>
+  </div>
+</div>
+{% endblock %}

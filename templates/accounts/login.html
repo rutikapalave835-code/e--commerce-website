@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login — ShopX{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-box">
+    <h2>Login</h2>
+    <p class="subtitle">Welcome back! Please sign in to your account</p>
+
+    <form method="post">
+      {% csrf_token %}
+      
+      {% if form.errors %}
+        <div style="background-color: rgba(255,68,68,0.1); border: 1px solid #ff4444; border-radius: 8px; padding: 12px; margin-bottom: 20px; color: #ff4444; font-size: 0.85rem;">
+          Invalid username or password. Please try again.
+        </div>
+      {% endif %}
+
+      <div class="form-group">
+        <label for="id_username">Username</label>
+        <input type="text" name="username" autofocus required id="id_username" placeholder="Enter your username">
+      </div>
+
+      <div class="form-group">
+        <label for="id_password">Password</label>
+        <input type="password" name="password" required id="id_password" placeholder="Enter your password">
+      </div>
+
+      <button type="submit" class="btn-primary">Login</button>
+    </form>
+
+    <p class="auth-link">New user? <a href="{% url 'register' %}">Signup</a></p>
+  </div>
+</div>
+{% endblock %}

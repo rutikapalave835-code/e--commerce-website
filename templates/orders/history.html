@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Orders — ShopX{% endblock %}
+
+{% block content %}
+<!-- NAVBAR -->
+<div class="navbar" style="border-top: none;">
+  <h2>📦 My Orders</h2>
+  <a href="{% url 'home' %}">← Home</a>
+</div>
+
+<p class="page-title">Order History</p>
+<div class="orders-container">
+  {% for order in orders %}
+    <div class="order-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+        <h3>Order #{{ order.id }}</h3>
+        <span style="display:inline-block; padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+                     {% if order.status == 'Delivered' %}background: rgba(68,255,68,0.1); color: #44ff44; border: 1px solid rgba(68,255,68,0.2);
+                     {% elif order.status == 'Cancelled' %}background: rgba(255,68,68,0.1); color: #ff4444; border: 1px solid rgba(255,68,68,0.2);
+                     {% else %}background: rgba(255,190,11,0.1); color: #ffbe0b; border: 1px solid rgba(255,190,11,0.2);{% endif %}">
+          {{ order.status }}
+        </span>
+      </div>
+      <p class="order-date">📅 {{ order.date|date:"d-m-Y H:i" }}</p>
+      
+      <hr style="border-color: var(--border); margin: 12px 0;">
+      
+      {% for item in order.items.all %}
+        <p class="order-item">✅ {{ item.product.name }} × {{ item.quantity }} = ₹{{ item.get_subtotal }}</p>
+      {% endfor %}
+      
+      <p class="order-total" style="margin-top: 14px;">💰 Total: ₹{{ order.total_price }}</p>
+      
+      <div style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px dashed var(--border); padding-top: 8px; line-height: 1.4;">
+        <p>👤 <strong>Deliver to:</strong> {{ order.billing_name }}</p>
+        <p>📍 <strong>Address:</strong> {{ order.shipping_address }}</p>
+        <p>📞 <strong>Phone:</strong> {{ order.phone }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <div class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h3>No orders yet</h3>
+      <p>Shop something and place your first order!</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
